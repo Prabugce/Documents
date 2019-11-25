@@ -1,0 +1,61 @@
+.headers
+{
+    background: #795548;
+    text-align: center;
+    padding: 10px; 
+    color: white;
+}
+
+body
+{
+    font-family: sans-serif;;
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+.Mani_contents
+{
+    float: left;
+    width: 100%;
+}
+
+.sidenav
+{
+    float: left;
+    width: 15%;
+    background: #282f4a;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 715px;
+    color: white;
+}
+
+.Dynamic_content
+{
+    float: left;
+    width: 85%;
+    padding: 0 0 0 6px;
+    box-sizing: border-box;
+    height: 715px;
+    background: #1f2537;
+    color: white;
+}
+
+.items
+{
+    border: 1px solid white;
+    text-align: center;
+    padding: 10px;
+    margin: 8px 0 0 0;
+    cursor: pointer;
+}
+
+
+.items:hover
+{
+    background: gray;
+}

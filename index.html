@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<head>
+    
+     <link href="index.css" rel="stylesheet"/> 
+
+    <script src= 
+    "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"> 
+    </script> 
+    <script src= 
+    "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"> 
+    </script>  
+      
+<script  type="text/javascript" src="index.js"></script> 
+
+ 
+    
+
+</head>
+</head>
+<body ng-app="myApp">
+
+<div class="mainSection">
+    <div class="headers">AngularJs Task</div>
+
+    <div class="Mani_contents">
+            <div class="sidenav">
+                    <ul>
+                        <!-- <li  class="items" ng-repeat="val in sidenaval" href=/home{{$index}}>{{val}}</li>  -->
+                        
+                   
+<!-- 
+         <p><a href="#/!">Main</a></p>
+                        <a href="#!red">Red</a>
+                        <a href="#!green">Green</a>
+                        <a href="#!blue">Blue</a>
+                    \
+                    -->
+
+                  
+<a href="#!courses">Courses@geeksforgeeks</a> 
+<br> 
+<a href="#!internships">Internships@geeksforgeeks</a> 
+ 
+                        
+        
+                    </ul>
+            </div>
+            <div class="Dynamic_content">
+                <ng-view></ng-view>
+        
+            </div>
+    </div>
+
+</div>
+
+</body>
+</html> 
+
