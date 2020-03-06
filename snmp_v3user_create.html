@@ -1,0 +1,552 @@
+<HTML>
+<HEAD>
+   <META http-equiv="Pragma" content="no-cache">
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <TITLE>Creating SNMP V3 User</TITLE>
+   <LINK REL=stylesheet HREF="../../styles/content41.css" TYPE="text/css">
+<link REL=stylesheet HREF="../../style.css" TYPE="text/css">
+<link REL=stylesheet HREF="../../oma.css" TYPE="text/css">
+
+<style>
+.symbol1
+{
+padding-right:35px;
+font-size:17px;
+}
+.symbol2
+{
+padding-right:35px;
+font-size:17px;
+}
+
+</style>
+<script language="javascript" src="../../servicescript41.js"></script>
+<script>
+var check1=true;
+var cls1=true;
+var cls2=true;
+var correct= "&#10004;";
+var level2=true;
+	
+var snmpTextAttrs = new Array();
+var notAllowedChars = new Array();
+notAllowedChars[0] = '?';
+notAllowedChars[1] = "\"";
+var itr = 0;
+snmpTextAttrs[itr++] = new textAttr("v3user_name","emweb:/SNMP?41;",31,notAllowedChars,null,true);
+snmpTextAttrs[itr++] = new textAttr("auth_pwd","emweb:/SNMP?49;",31,notAllowedChars,null,false);
+snmpTextAttrs[itr++] = new textAttr("auth_pwd_cfrm","emweb:/SNMP?50;",31,notAllowedChars,null,false);
+snmpTextAttrs[itr++] = new textAttr("priv_pwd","emweb:/SNMP?54;",31,notAllowedChars,null,false);
+snmpTextAttrs[itr++] = new textAttr("priv_pwd_cfrm","emweb:/SNMP?55;",31,notAllowedChars,null,false);
+
+
+thisFormAttrs = new formAttrs(null,snmpTextAttrs,null,null);
+businessLogicImplemented = true;
+function validateBusinessLogic(attrs){    
+ var gray = document.getElementsByClassName("gray");
+  var OneCheck = document.getElementsByClassName("symbol1");
+	
+ if(document.forms[0].auth_proto.options[0].selected == true &&
+    document.forms[0].priv_proto.options[0].selected != true){
+    alert("emweb:/SNMP?34;");
+    return false;
+ }
+
+  if(document.forms[0].auth_proto.options[0].selected != true &&
+     document.forms[0].auth_pwd.value == ""){
+     alert("emweb:/SNMP?35;");
+	 
+     return false;
+  }
+  if(document.forms[0].auth_proto.options[0].selected != true &&
+     document.forms[0].auth_pwd.value.length < 12){
+     alert("Snmpv3 user auth password length must be between 12 to 31 characters.");
+     return false;
+
+  } 
+  
+if(document.forms[0].auth_pwd.value != document.forms[0].auth_pwd_cfrm.value){
+  alert("emweb:/SNMP?37;");
+  
+  document.forms[0].auth_pwd.value = "";
+  document.forms[0].auth_pwd_cfrm.value = "";
+  var t = document.getElementsByClassName("gray");
+
+	for (var i=0;i<t.length;i++)
+	{
+		if(t[i].style.display=="block")
+		 {
+			t[i].getElementsByClassName("symbol1")[0].innerHTML=correct; 
+			t[i].getElementsByClassName("symbol1")[0].style.color="red"; 
+			t[i].style.color="red";
+		 }
+	}
+  
+  return false;
+} 
+	 
+
+if(document.forms[0].priv_proto.options[0].selected != true &&
+     document.forms[0].priv_pwd.value == ""){
+     alert("emweb:/SNMP?36;");
+     return false;
+  }
+if(document.forms[0].priv_proto.options[0].selected != true &&
+     document.forms[0].priv_pwd.value.length < 12){
+     alert("Snmpv3 user privacy password length must be between 12 to 31 characters.");
+     return false;
+  }
+	 
+if(document.forms[0].priv_pwd.value != document.forms[0].priv_pwd_cfrm.value){
+  alert("emweb:/SNMP?38;");
+  document.forms[0].priv_pwd.value = "";
+  document.forms[0].priv_pwd_cfrm.value = "";
+  var t = document.getElementsByClassName("gray");
+  	var correct= "&#10004;";
+	for (var i=0;i<t.length;i++)
+	{
+		if(t[i].style.display=="block")
+		 {
+			t[i].getElementsByClassName("symbol2")[0].innerHTML=correct; 
+			t[i].getElementsByClassName("symbol2")[0].style.color="red";
+			t[i].style.color="red";
+		 }
+	}
+	
+  return false;
+}
+   	var field1 = document.getElementById("listVal").value;
+	var field2 = document.getElementById("listVal1").value;
+		
+	if(field1 =="None" && field2 =="None")
+	{
+ 	 return true;
+	}
+	
+	else
+	{ 
+	var gray = document.getElementsByClassName("gray");
+		for (var j=0;j<gray.length;j++)
+		{
+			if(gray[j].style.color=="red" && gray[j].style.display=="block")
+			{
+				console.log(gray[j]);
+				check1= false;
+			}
+		} 
+	 	
+		if(check1)
+		 {
+			alert("Form successfully completed");
+			return true;
+		 }
+		else
+		{
+			alert("Please check password policy");
+			return false;
+		}
+	}
+	 
+}
+
+function ShowPasswordFields(pass){
+ 	var field1 = document.getElementById("listVal").value;
+	var field2 = document.getElementById("listVal1").value;
+	
+	if(field1=="None" && field2=="None")
+	{
+		document.getElementById("errorcontent").style.display="none";
+		document.getElementById("f1").style.display="none";
+		document.getElementById("f2").style.visibility="hidden";
+		document.getElementById("val1").style.display="none";
+		document.getElementById("val2").style.display="none";
+		
+	}
+	
+	if(pass==1)
+	{
+		  if(field1 == "None"){ 
+			auth_box.className = "invisible";
+			var tdval1= document.getElementById("val1");
+			tdval1.style.display="none"; 
+			var syme1 = document.getElementsByClassName("symbol1");
+		 
+			for (var j=0;j<syme1.length;j++)
+			{
+				syme1[j].innerHTML=correct;
+				syme1[j].style.display="none"; 
+				syme1[j].style.color="black";
+				
+			}
+			if(field2!="None" && field1=="None")
+			{
+				var t = document.getElementsByClassName("gray");
+					for (var i=0;i<t.length;i++)
+					{
+						if(t[i].style.color=="red")
+						{
+							if(t[i].getElementsByClassName("symbol2")[0].innerHTML=="✔" && t[i].getElementsByClassName("symbol2")[0].style.color=="")
+							{ 
+								t[i].style.color="red";
+								t[i].getElementsByClassName("symbol2")[0].style.color="red";
+							}
+							
+							if(t[i].getElementsByClassName("symbol2")[0].innerHTML=="✔" && t[i].getElementsByClassName("symbol2")[0].style.color=="green")
+							{ 
+								t[i].style.color="red";
+								t[i].getElementsByClassName("symbol2")[0].style.color="green";
+							}
+						}
+						
+
+
+					}
+			}
+			
+			if(field2!="None" && field1!="None")
+			{
+				var t = document.getElementsByClassName("gray");
+					for (var i=0;i<t.length;i++)
+					{
+						if((t[i].style.color=="red" || t[i].style.color=="green") && t[i].style.display=="block")
+						{
+							if(t[i].getElementsByClassName("symbol2")[0].style.color=="red" || t[i].getElementsByClassName("symbol2")[0].style.color=="black")
+							{ 
+								console.log(t[i].getElementsByClassName("symbol2")[0].style.color);
+								
+								t[i].style.color="red";
+								t[i].getElementsByClassName("symbol2")[0].style.color="red";
+							}
+							
+							if(t[i].getElementsByClassName("symbol2")[0].style.color=="green")
+							{ 
+								t[i].style.color="red";
+								t[i].getElementsByClassName("symbol2")[0].style.color="green";
+							}
+							if(t[i].getElementsByClassName("symbol2")[0].style.color=="green" && t[i].getElementsByClassName("symbol1")[0].style.color=="green")
+							{
+								t[i].style.color="green";
+							}
+							 
+						}
+
+
+					}
+			}
+			
+			
+			
+		  }
+		  else 
+		  {
+		  auth_box.className = "";
+			 
+			var syme1 = document.getElementsByClassName("symbol1");
+			document.getElementById("f1").style.display="block"; 
+				
+				document.getElementById("errorcontent").style.display="block";
+				document.getElementById("f1").style.display="block";
+				document.getElementById("f2").style.visibility="visible"; 
+				document.getElementById("val1").style.display="inline-table";
+				
+				for (var j=0;j<syme1.length;j++)
+				{
+					syme1[j].style.display="inline"; 
+					syme1[j].style.color="black";
+					syme1[j].innerHTML=correct;
+				}
+				
+				document.getElementById('userpwd').value="";
+				document.getElementById('auth_pwd_cfrm').value="";
+				
+		  }
+	}
+	else
+	{
+		 
+		if(field2 == "None"){
+			
+			priv_box.className = "invisible";
+			var tdval2= document.getElementById("val2");
+			tdval2.style.display="none"; 
+			var syme2 = document.getElementsByClassName("symbol2");
+		 
+			for (var j=0;j<syme2.length;j++)
+			{
+				syme2[j].style.display="none"; 
+				syme2[j].style.color="black";
+			}
+			
+			if(field1!="None" && field2=="None")
+			{
+				var t = document.getElementsByClassName("gray");
+					for (var i=0;i<t.length;i++)
+					{
+						if(t[i].style.color=="red")
+						{
+							if(t[i].getElementsByClassName("symbol1")[0].innerHTML=="✔" && t[i].getElementsByClassName("symbol1")[0].style.color=="")
+							{ 
+							t[i].style.color="red";
+							t[i].getElementsByClassName("symbol1")[0].style.color="red";
+							}
+							if(t[i].getElementsByClassName("symbol1")[0].innerHTML=="✔" && t[i].getElementsByClassName("symbol1")[0].style.color=="green")
+							{ 
+							t[i].style.color="green";
+							t[i].getElementsByClassName("symbol2")[0].style.color="green";
+							}
+						}
+
+
+					}
+			}
+		
+	  }else
+		{
+			priv_box.className = "";
+			
+			var field1 = document.getElementById("listVal").value;
+			var field2 = document.getElementById("listVal1").value;
+	 
+			var syme2 = document.getElementsByClassName("symbol2");
+			var syme1 = document.getElementsByClassName("symbol1");
+			
+			document.getElementById("errorcontent").style.display="block";
+			document.getElementById("f1").style.display="block";
+			document.getElementById("f2").style.visibility="visible";  
+			document.getElementById("val2").style.display="inline-table";
+			
+			for (var j=0;j<syme2.length;j++)
+			{
+				syme2[j].style.display="inline"; 
+				syme2[j].style.color="black";
+				syme2[j].innerHTML=correct;
+			}
+ 			document.getElementById('userpwd1').value="";
+			document.getElementById('priv_pwd_cfrm').value="";
+			
+			if(field2!="None" && field1!="None")
+			{
+				var t = document.getElementsByClassName("gray");
+					for (var i=0;i<t.length;i++)
+					{
+						if((t[i].style.color=="red" || t[i].style.color=="green") && t[i].style.display=="block")
+						{
+							if(t[i].getElementsByClassName("symbol2")[0].style.color=="red" || t[i].getElementsByClassName("symbol2")[0].style.color=="black")
+							{ 
+								console.log(t[i].getElementsByClassName("symbol2")[0].style.color);
+								
+								t[i].style.color="red";
+								t[i].getElementsByClassName("symbol2")[0].style.color="red";
+							}
+							
+							if(t[i].getElementsByClassName("symbol2")[0].style.color=="green")
+							{ 
+								t[i].style.color="red";
+								t[i].getElementsByClassName("symbol2")[0].style.color="green";
+							}
+							if(t[i].getElementsByClassName("symbol2")[0].style.color=="green" && t[i].getElementsByClassName("symbol1")[0].style.color=="green")
+							{
+								t[i].style.color="green";
+							}
+							 
+						}
+
+
+					}
+			}
+			
+			if(field1=="None" && field1!="None")
+			{
+				alert("Please select Authentication Protocol");
+				return false;
+			}
+	 
+	 
+		}
+	}
+ 
+ 
+ 
+}
+</script>
+<style>
+<!--
+A{text-decoration:none}
+-->
+</style>
+</HEAD>
+<body bgcolor="#FFFFFF" text="#000000" onload="CheckError(),ConfigPolicy(3)">
+<script>
+drawHeader();
+</script>
+
+<form method="post" EMWEB_NAME="snmp_v3user_create">
+<EMWEB_STRING C=' return usmWebGetAccessControlHtml(ewsContext);'/>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+    <tr>
+      <td class="pageTitle">
+        <h1>emweb:/SNMP?39; &gt; emweb:/SNMP?40;</h1>
+      </td>
+      <td align="right" class="pageTitle">
+        <script>getHtmlForBackButton();</script>
+        &nbsp;&nbsp;&nbsp;
+	<script>getHtmlForNewApplyButton();</script>
+	<script>getHtmlForHelpButton("<EMWEB_STRING C=' return SNMP_V3_USERS_NEW_HELP;' />","emweb:/HELPSTARTPAGE;");</script>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+<TD class = "label2">emweb:/SNMP?41;</TD>
+<TD class = "label2"><input type="TEXT" id="username" onkeyup="UserNameCheck()" name="v3user_name" SIZE=20 MAXLENGTH=31></TD>
+</TR>
+<TR>
+<TD class = "label2">emweb:/SNMP?42;</TD>
+<TD class = "label2">
+  <select name="acc_mode" size="1">
+  <option value="Readonly">emweb:/SNMP?43;</option>
+  <option value="Readwrite">emweb:/SNMP?44;</option>
+  </select>
+  </TD>
+</TR>
+<TR>
+<TD class = "label2">emweb:/SNMP?45;</TD>
+<TD class = "label2">
+  <select id="listVal" name="auth_proto" size="1" onchange="ShowPasswordFields(1);">
+  <option value="None">emweb:/SNMP?46;</option>
+  <option value="HmacMd5" >emweb:/SNMP?47;</option>
+  <option value="HmacSha" selected>emweb:/SNMP?48;</option>
+  </select>
+  </TD>
+</tr><tr>
+<td>&nbsp;</td>
+            <td colspan=4>
+              <div id="auth_box">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td class = "label2">
+		      <input type="Password" onkeyup="CheckPasspolicy(3)" name="auth_pwd" id="userpwd" autocomplete="off" SIZE=35 MAXLENGTH=31 EMWEB_TYPE=PASSWORD>
+                    </td>
+		    <td class = "label2">
+		    <input type="Password" id="auth_pwd_cfrm" name="auth_pwd_cfrm" autocomplete="off" SIZE=35 MAXLENGTH=31 EMWEB_TYPE=PASSWORD>
+            </td>
+                  </tr>
+                  <tr>
+                    <td class = "label2" nowrap>&nbsp;emweb:/SNMP?49;</td>
+                    <td class = "label2" nowrap>&nbsp;emweb:/SNMP?50;</td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+<TR>
+<TR>
+<TD class = "label2">emweb:/SNMP?51;</TD>
+<TD class = "label2">
+  <select id="listVal1" name="priv_proto" size="1" onchange="ShowPasswordFields(2);">
+  <option value="None">emweb:/SNMP?52;</option>
+  <option value="Des" >emweb:/SNMP?53;</option>
+  <option value="AesCfb128" selected>emweb:/SNMP?91;</option>
+  </select>
+  </TD>
+</tr><tr><td>&nbsp;</td>
+            <td>
+              <div id="priv_box">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td class = "label2">
+		      <input type="Password" onkeyup="CheckPasspolicy(31,event)" name="priv_pwd"  id="userpwd1" autocomplete="off" SIZE=35 MAXLENGTH=31 EMWEB_TYPE=PASSWORD>
+                    </td>
+		    <td class = "label2">
+		    <input type="Password" id="priv_pwd_cfrm" name="priv_pwd_cfrm" autocomplete="off" SIZE=35 MAXLENGTH=31 EMWEB_TYPE=PASSWORD>
+		    </td
+                  </tr>
+                  <tr>
+                    <td class = "label2" nowrap>&nbsp;emweb:/SNMP?54;</td>
+                    <td class = "label2" nowrap>&nbsp;emweb:/SNMP?55;</td>
+                  </tr>
+				  
+				
+				
+		
+                </table>
+              </div>
+            </td>
+          </tr>
+			<tr id="f1">
+				<td colspan="2" class="label1">Password Policy</td>
+			</tr>	
+			<tr id="f2">
+				 <td colspan="2" class="horizLine"><img src="../../images/spacer.gif" width="1" height="1" alt=""></td>
+			</tr>
+			
+<table>
+    <tbody>
+	<tr style="width: 10%;">
+        <td id="val1" style="width: 35px;padding: 9px 5px 0 36px;">Auth Policy</td>
+        <td id="val2" style="width: 23px;padding: 9px 0 0 25px;">Privacy Policy</td>
+         
+    </tr>
+</tbody>
+</table>
+				
+        </table>
+      </td>
+    </tr>
+<TR>
+ <TD ALIGN=left><INPUT TYPE="hidden" NAME="err_flag" SIZE="16" MAXLENGTH="15" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+
+
+<TR>
+ <TD ALIGN=left><INPUT id="ConfigLength" TYPE="hidden" NAME="err_validpass" SIZE="512" MAXLENGTH="511" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+ 
+
+<TR>
+ <TD ALIGN=left><INPUT id="minlength1" TYPE="hidden" NAME="minimumvalue" SIZE="512" MAXLENGTH="511" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+
+
+<TR>
+ <TD ALIGN=left><INPUT id="Upperlength" TYPE="hidden" NAME="uppervalue" SIZE="512" MAXLENGTH="511" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+
+<TR>
+ <TD ALIGN=left><INPUT id="LowerLength" TYPE="hidden" NAME="lowervalue" SIZE="512" MAXLENGTH="511" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+
+<TR>
+ <TD ALIGN=left><INPUT id="DigitsLength" TYPE="hidden" NAME="digitvalue" SIZE="512" MAXLENGTH="511" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+<TR>
+ <TD ALIGN=left><INPUT id="SpecialCaseLength" TYPE="hidden" NAME="specialvalue" SIZE="512" MAXLENGTH="511" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+
+
+
+<TR>
+ <TD ALIGN=left><INPUT TYPE="hidden" NAME="err_msg" SIZE="512" MAXLENGTH="511" ></TD>
+</TR>
+<TR>
+ <TD ALIGN=left><INPUT TYPE="hidden" NAME="info_flag" SIZE="16" MAXLENGTH="15" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+
+<TR>
+ <TD ALIGN=left><INPUT TYPE="hidden" NAME="info_msg" SIZE="512" MAXLENGTH="511" ></TD>
+</TR>
+<TR>
+ <TD ALIGN=left><INPUT TYPE="hidden" NAME="buttonClicked" SIZE="16" MAXLENGTH="15" EMWEB_TYPE=DECIMAL_UINT></TD>
+</TR>
+</TABLE>
+
+ <div id="errorcontent">
+
+</div>
+
+</form>
+</body>
+</html>
